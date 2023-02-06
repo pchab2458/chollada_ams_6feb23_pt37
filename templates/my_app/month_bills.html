@@ -1,0 +1,145 @@
+{% extends 'app_base_html.html' %}
+{% load static %}
+{% load humanize %}
+{% load ams_tags %}
+
+{% block title %}Monthly Bills{% endblock %}
+
+{% block style %}
+
+    <style>
+        figure, figcaption {
+            margin: 0;
+            padding: 0;
+        }
+
+        figure {
+        {#border: 1px solid black;#}{#width: 1000px;#}{#padding: 10px;#}{#background-color: lightblue;#}
+        }
+
+        figcaption {
+        {#display: block;#}{#font-weight: bold;#}{#text-align: center;#}{#font-size: 150%;#}{#padding-bottom: .25em;#}{#background-color: yellow;#}
+        }
+
+
+        table {
+            border-collapse: collapse;
+            margin: 0 0;
+        {#border: 2px solid black;#}{#margin: 10px auto;#}{#background-color: yellow;#}
+        }
+
+
+        tr:nth-child(even) {
+            background-color: lightblue;
+        }
+
+        thead {
+            background-color: dodgerblue;
+            color: white;
+            line-height: 1.8;
+        }
+
+        thead th {
+            text-align: right;
+
+        }
+
+
+        th, td {
+            padding: .2em .2em;
+            text-align: right;
+            width: 65px;
+        }
+
+        th:nth-child(1) {
+            text-align: center;
+            width: 190px;
+        }
+
+        th:nth-last-child(1) {
+            text-align: right;
+            width: 75px;
+        }
+
+        td:nth-last-child(1) {
+            text-align: right;
+        }
+
+        td:nth-child(1) {
+            text-align: left;
+            color: black;
+        }
+
+
+        td:nth-child(2) {
+            text-align: center;
+            width: 35px;
+        }
+
+        th:nth-child(2) {
+            text-align: center;
+            background-color: red;
+        }
+
+        td:nth-child(3) {
+            text-align: right;
+            width: 75px;
+        }
+
+        td a {
+            color: red;
+        }
+
+        td a:hover {
+            color: blue;
+        }
+    </style>
+{% endblock %}
+
+
+{% block content %}
+
+    <h1>บิลที่รอชำระ [รอบเดือน {{ thai_month_open_bd }} {{ thai_year_open_bd }}]</h1>
+
+    <figure>
+        {#        <figcaption id="top">Monthly Billing</figcaption>#}
+        <table>
+            <thead>
+            <tr>
+                <th>NAME</th>
+                <th>ROOM</th>
+                <th>RCAC</th>
+                <th>EC</th>
+                <th>WC</th>
+                <th>CSC</th>
+                <th>OSC</th>
+                <th>OVD</th>
+                <th>LF</th>
+                <th>MC</th>
+                <th>TOTAL</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for bill in bills %}
+                <tr>
+                    <td>{{ bill.tenant_name }}</td>
+                    <td><a href="{{ bill.get_absolute_url }}"> {{ bill.room_no }}</a></td>
+                    <td>{{ bill.room_cost|add:bill.room_acc_cost|add:bill.adjust|floatformat:0|intcomma }}</td>
+                    <td>{{ bill.electricity_cost|floatformat:0|intcomma }}</td>
+                    <td>{{ bill.water_cost|floatformat:0|intcomma }}</td>
+                    <td>{{ bill.common_ser_cost|floatformat:0|intcomma }}</td>
+                    <td>{{ bill.other_ser_cost|floatformat:0|intcomma }}</td>
+                    <td>{{ bill.overdue_amount|floatformat:0|intcomma }}</td>
+                    <td>{{ bill.late_fee|floatformat:0|intcomma }}</td>
+                    <td>{{ bill.maint_cost|floatformat:0|intcomma }}</td>
+                    <td>{{ bill.bill_total|floatformat:0|intcomma }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        {#        <figcaption id="bottom">Total Sales by Book</figcaption>#}
+    </figure>
+{% endblock %}
+

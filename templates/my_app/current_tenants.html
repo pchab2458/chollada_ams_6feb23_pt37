@@ -1,0 +1,179 @@
+{% extends 'app_base_html.html' %}
+{% load static %}
+{% load humanize %}
+{% load ams_tags %}
+
+{% block title %}Current tenants{% endblock %}
+
+{% block style %}
+    <style>
+        figure, figcaption {
+            margin: 0;
+            padding: 0;
+        }
+
+        figure {
+        {#border: 1px solid black;#}{#width: 1000px;#}{#padding: 10px;#}{#background-color: lightblue;#}
+        }
+
+        figcaption {
+        {#display: block;#}{#font-weight: bold;#}{#text-align: center;#}{#font-size: 150%;#}{#padding-bottom: .25em;#}{#background-color: yellow;#}
+        }
+
+
+        table {
+            border-collapse: collapse;
+            margin: 0 0;
+        {#border: 2px solid black;#}{#margin: 10px auto;#}{#background-color: yellow;#}
+        }
+
+
+        tr:nth-child(even) {
+            background-color: thistle;
+        }
+
+        thead {
+            background-color: darkorchid;
+            color: white;
+        {#color: black;#} line-height: 1.8;
+        }
+
+        thead th {
+            text-align: right;
+
+        }
+
+
+        th, td {
+            padding: .2em .2em;
+            text-align: right;
+            width: 35px;
+        }
+
+        th:nth-child(1) {
+            text-align: center;
+
+        }
+
+        th:nth-last-child(1) {
+            text-align: center;
+
+        }
+
+        td:nth-last-child(1) {
+            text-align: center;
+            width: 100px;
+        }
+
+        tbody td:nth-child(1) {
+            text-align: center;
+            color: blue;
+            width: 45px;
+        }
+
+
+        td:nth-child(2) {
+            text-align: left;
+            width: 220px;
+        }
+
+        th:nth-child(2) {
+            text-align: center;
+        }
+
+
+        th:nth-child(3), td:nth-child(3) {
+            text-align: center;
+            width: 92px;
+        }
+
+        th:nth-child(4), td:nth-child(4) {
+            text-align: right;
+            width: 47px;
+        }
+
+        th:nth-child(5), td:nth-child(5) {
+            text-align: right;
+            width: 47px;
+        }
+
+        th:nth-child(7), td:nth-child(7) {
+            text-align: right;
+            width: 47px;
+        }
+
+        th:nth-child(8), td:nth-child(8) {
+            text-align: right;
+            width: 47px;
+        }
+
+        th:nth-child(9), td:nth-child(9) {
+            text-align: right;
+            width: 47px;
+        }
+
+    </style>
+{% endblock %}
+
+
+{% block content %}
+
+    <h1>มีผู้เช่าทั้งหมด {{ total_tn }} คน [ณ. {{ current_dt|date:'d-m-y' }} {{ current_dt|time:'H:i:s' }}]</h1>
+
+    <figure>
+        {#        <figcaption id="top">Monthly Billing</figcaption>#}
+        <table>
+            <thead>
+            <tr>
+                <th>RM</th>
+                <th>NAME</th>
+                <th>HP</th>
+                <th>RMC</th>
+                <th>RAC</th>
+                <th>OSC</th>
+                <th>DEPO</th>
+                <th>ADJ</th>
+                <th>OVD</th>
+                <th>LF</th>
+                <th>MC</th>
+                <th>S_DATE</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for i in cur_tenant_pfs %}
+                <tr>
+                    {#                    <td>{{ i.room_no }}</td>#}
+                    {#                    <td>{{ i.tenant }}</td>#}
+                    {#                    <td>{{ i.phone }}</td>#}
+                    {#                    <td>{{ i.room_no.room_type.rate|floatformat:"0g" }}</td>#}
+                    {#                    <td>{% room_acc_cost i.room_no.room_no %}</td>#}
+                    {#                    <td>{% room_other_cost i.room_no.room_no %}</td>#}
+                    {#                    <td>{{ i.deposit|floatformat:"0g" }}</td>#}
+                    {#                    <td>{{ i.adjust|floatformat:"0g" }}</td>#}
+                    {#                    <td>{{ i.cum_ovd|floatformat:"0g" }}</td>#}
+                    {#                    <td>{{ i.late_fee|floatformat:"0g" }}</td>#}
+                    {#                    <td>{{ i.maint_cost|floatformat:"0g" }}</td>#}
+                    {#                    <td>{{ i.start_date|date:'d-m-y' }}</td>#}
+
+                    {#                                    #----------------------------------------#}
+                    <td>{{ i.room_no }}</td>
+                    <td>{{ i.tenant }}</td>
+                    <td>{{ i.phone }}</td>
+                    <td>{{ i.room_no.room_type.rate|floatformat:0|intcomma }}</td>
+                    <td>{% room_acc_cost i.room_no.room_no %}</td>
+                    <td>{% room_other_cost i.room_no.room_no %}</td>
+                    <td>{{ i.deposit|floatformat:0|intcomma }}</td>
+                    <td>{{ i.adjust|floatformat:0|intcomma }}</td>
+                    <td>{{ i.cum_ovd|floatformat:0|intcomma }}</td>
+                    <td>{{ i.late_fee|floatformat:0|intcomma }}</td>
+                    <td>{{ i.maint_cost|floatformat:0|intcomma }}</td>
+                    <td>{{ i.start_date|date:'d-m-y' }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+
+        </table>
+
+        {#        <figcaption id="bottom">Total Sales by Book</figcaption>#}
+    </figure>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "app_base_html.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}Tenant Bil{% endblock %}
+
+{% block script %}
+{% endblock %}
+
+{% block style %}
+{% endblock %}
+
+{% block content %}
+
+    <p style="font-size:170%;color: blue">ยินดีต้อนรับ คุณ <span style="color: green; font-size: 1.5em">{{ tenant_name }} ... </span></p>
+    <p style="font-size:120%;color: blue"><strong>รายการค่าบริการของท่าน</strong> จะปรากฏ หลังวันที่ 26 ของเดือน</p>
+    <p style="font-size:120%;color: blue">โปรดอ่าน <strong>ข้อมูลที่ควรทราบ</strong> ถ้าต้องการความช่วยเหลือใดๆ โทร. 0832461546 (คุณ ต้อม) ได้ตลอดเวลา</p>
+
+
+{% endblock %}
